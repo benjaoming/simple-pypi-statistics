@@ -7,9 +7,10 @@ python:
   - "2.7"
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -r requirements.txt
+install:
+  - python setup.py install
 
 # command to run tests, e.g. python setup.py test
 script:
-  - python -m simple_pypi_statistics docopt
-  - python -m simple_pypi_statistics json docopt
+  - simple-pypi-statistics docopt
+  - simple-pypi-statistics json docopt
