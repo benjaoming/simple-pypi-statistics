@@ -8,7 +8,7 @@ simple-pypi-statistics
 
 API and commandline for fetching simple statistics from PyPi's API
 
-* Free software: BSD license
+* Free software: GPLv2
 * Documentation: https://simple_pypi_statistics.readthedocs.org.
 
 Usage
