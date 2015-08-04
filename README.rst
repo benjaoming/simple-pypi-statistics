@@ -2,6 +2,9 @@
 simple-pypi-statistics
 ===============================
 
+.. image:: https://travis-ci.org/benjaoming/simple-pypi-statistics.svg
+    :target: https://travis-ci.org/benjaoming/simple-pypi-statistics
+
 .. image:: https://img.shields.io/pypi/v/simple-pypi-statistics.svg
         :target: https://pypi.python.org/pypi/simple-pypi-statistics
 
