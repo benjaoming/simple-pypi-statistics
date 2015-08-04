@@ -188,3 +188,47 @@ def get_stats(package):
 
     return result, grand_total, version
 
+
+def get_corrected_stats(package, use_honeypot=True):
+    """
+    Fetches statistics for `package` and then corrects them using a special
+    honeypot.
+    """
+
+    honeypot, __, __ = get_stats('python-bogus-project-honeypot')
+
+    if not honeypot:
+        raise RuntimeError("Could not get honeypot data")
+
+    honeypot = honeypot['releases']
+    # Add a field used to store diff when choosing the best honey pot release
+    # for some statistic
+    for x in honeypot:
+        x['diff'] = 0
+
+    stats, __, version = get_stats(package)
+
+    if not stats:
+        return
+
+    # Denote release date diff and choose the honey pot release that's closest
+    # to the one of each release
+
+    releases = stats['releases']
+
+    for release in releases:
+
+        # Sort by absolute difference
+        honeypot.sort(key=lambda x: abs(
+            (x['upload_time'] - release['upload_time']).total_seconds()
+        ))
+        # Multiple candidates
+        honeypot_filtered = list(filter(lambda x: x['diff'] == honeypot[0]['diff'], honeypot))
+        average_downloads = sum([x['downloads'] for x in honeypot_filtered]) / len(honeypot_filtered)
+
+        release['downloads'] = release['downloads'] - average_downloads
+
+    # Re-calculate totals
+    total_count = sum([x['downloads'] for x in releases])
+
+    return stats, total_count, version

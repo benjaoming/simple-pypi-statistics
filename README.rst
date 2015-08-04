@@ -47,3 +47,18 @@ Features
 * verbose output
 * JSON output
 * functions in api for direct access
+
+
+Honey pot
+---------
+
+A bogus project on PyPi is used to track garbage stats. To assure that things are
+working, consider that the grand total of downloads for that project is actually
+also ``0``::
+
+    python3 -m simple_pypi_statistics python-bogus-project-honeypot
+    python-bogus-project-honeypot-1438620531.16.tar.gz    2015-08-03           12
+    python-bogus-project-honeypot-1438619971.82.tar.gz    2015-08-03          -12
+    -----------------------------------------------------------------------------
+    No downloads for python-bogus-project-honeypot.
+

@@ -56,14 +56,14 @@ if __name__ == '__main__':
     all_packages = {}
 
     for package in arguments['<pypi-package>']:
-        result, grand_total, version = api.get_stats(package)
+
+        if not arguments['--no-honeypot']:
+            result, grand_total, version = api.get_corrected_stats(package)
+        else:
+            result, grand_total, version = api.get_stats(package)
         if package not in all_packages:
             all_packages[package] = {}
         all_packages[package][version] = (result, grand_total)
-
-    if not arguments['--no-honeypot']:
-        pass
-        # honey_pot = api.get_stats('python-bogus-project-honeypot')
 
     if arguments['json']:
 
