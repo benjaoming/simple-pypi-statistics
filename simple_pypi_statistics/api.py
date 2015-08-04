@@ -21,7 +21,7 @@ except ImportError:
     from httplib import HTTPSConnection
 
 import json
-import time
+from datetime import datetime
 
 # PyPI's XML-RPC methods
 # https://wiki.python.org/moin/PyPIXmlRpc
@@ -69,10 +69,11 @@ def count_downloads(package, version=None, json=False):
             downloads = url['downloads']
             if not json:
                 upload_time = url['upload_time'].timetuple()
-                upload_time = time.strftime('%Y-%m-%d', upload_time)
+                upload_time = datetime.strftime('%Y-%m-%d', upload_time).date()
             else:
                 # Convert 2011-04-14T02:16:55 to 2011-04-14
                 upload_time = url['upload_time'].split('T')[0]
+                upload_time = datetime.strptime(upload_time, '%Y-%m-%d').date()
             if version == data['version'] or not version:
                 items.append(
                     {
@@ -155,6 +156,10 @@ def get_release_info(packages, json=False):
 
 
 def get_stats(package):
+    """
+    Fetch raw statistics of a package, no corrections are made to this
+    data. You should use get_corrected_stats().
+    """
 
     grand_total = 0
 
@@ -182,3 +187,4 @@ def get_stats(package):
     grand_total += total
 
     return result, grand_total, version
+
