@@ -43,7 +43,7 @@ from . import __version__
 from . import api
 
 
-if __name__ == '__main__':
+def main():
     arguments = docopt(__doc__, version='simple-pypi-statistics ' + __version__)
 
     # Input:
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     if arguments['json']:
         for pkg in all_packages.values():
-            for version, total in pkg.values():
+            for version, __ in pkg.values():
                 for stat in version['releases']:
                     stat['upload_time'] = str(stat['upload_time'])
         print(json.dumps(all_packages))
@@ -108,3 +108,6 @@ if __name__ == '__main__':
 
                 # Add a blank line for read-ability
             print("")
+
+if __name__ == '__main__':
+    main()
