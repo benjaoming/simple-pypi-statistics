@@ -91,7 +91,7 @@ def get_jsonparsed_data(url):
        object.
     """
     response = urlopen(url)
-    data = str(response.read())
+    data = response.read().decode('utf-8')
     return json.loads(data)
 
 
