@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import re
 
 try:
     from setuptools import setup
@@ -14,17 +15,25 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
-requirements = [
-    # TODO: put package requirements here
-]
+from simple_pypi_statistics import __version__ as VERSION
 
-test_requirements = [
-    # TODO: put package test requirements here
-]
+
+# A comment is a line starting with # or --
+is_comment = re.compile('^\s*(#|--).*').match
+
+
+def load_requirements(fname):
+    with open(fname) as fo:
+        return [line.strip() for line in fo
+                if not is_comment(line) and line.strip()]
+
+requirements = load_requirements('requirements.txt')
+
+test_requirements = []
 
 setup(
     name='simple_pypi_statistics',
-    version='0.1.0',
+    version=VERSION,
     description="API and commandline for fetching simple statistics from PyPi's API",
     long_description=readme + '\n\n' + history,
     author="Benjamin Bach",
@@ -41,7 +50,7 @@ setup(
     zip_safe=False,
     keywords='simple_pypi_statistics',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Natural Language :: English',
