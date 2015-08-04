@@ -42,4 +42,6 @@ Run ``simple-pypi-statistics`` to show usage::
 Features
 --------
 
-* TODO
+* verbose output
+* JSON output
+* functions in api for direct access
