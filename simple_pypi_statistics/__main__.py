@@ -66,7 +66,10 @@ if __name__ == '__main__':
         all_packages[package][version] = (result, grand_total)
 
     if arguments['json']:
-
+        for pkg in all_packages.values():
+            for version, total in pkg.values():
+                for stat in version['releases']:
+                    stat['upload_time'] = str(stat['upload_time'])
         print(json.dumps(all_packages))
 
     # Be verbose by default

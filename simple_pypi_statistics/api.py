@@ -180,7 +180,6 @@ def get_stats(package):
 
     result = {
         'version': version,
-        'downloads': total or 0,
         'releases': releases,
     }
 
