@@ -1,3 +1,7 @@
+*Update 2019-09-10: This project is unmaintained*
+
+...but there's an **even better one**: https://github.com/hugovk/pypistats
+
 ===============================
 simple-pypi-statistics
 ===============================
